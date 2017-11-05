@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\EnigmaMachine.cs" />
+    <Compile Include="App\EnigmaParams.cs" />
+    <Compile Include="App\EnigmaUtilities.cs" />
+    <Compile Include="App\InOutControl.cs" />
+    <Compile Include="App\Rotor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
