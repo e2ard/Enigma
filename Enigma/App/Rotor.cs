@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,29 +10,43 @@ namespace Enigma.App
     class Rotor
     {
         public int CurrentStep;
-        string[] Chars = { "A", "B", "C", "D", "E" };
-        public Rotor(int step)
+        public List<string> Chars;
+        public List<string> Alphabet = new List<string>{ "A", "B", "C", "D", "E" };
+        public Rotor(int step, List<string> chars)
         {
-            Console.WriteLine("ROTOR CONSTRUCTOR " + step);
-            CurrentStep = step;
+            Debug.WriteLine("ROTOR CONSTRUCTOR " + step);
+            CurrentStep = SetStep(step);
+            Chars = chars;
         }
         public void Rotate(int step = 1)
         {
-            CurrentStep = (CurrentStep + step) % Program.CHAR_NUM;
-            Console.WriteLine("ROTOR ROTATE" + CurrentStep);
+            CurrentStep = SetStep(CurrentStep + step);
         }
 
-        public void SetStep(int step)
+        public int SetStep(int step)
         {
-            CurrentStep = step;
+            return step % Program.CHAR_NUM;
         }
 
-        public string GetValue(string value)
+        public string GetValueForward(string value)
         {
-            int iValue = value[0] - 65;
-            Console.WriteLine("ROTOR GETVALUE" + CurrentStep  + "\n");
-            //Console.Write(value + "to int " + Convert.ToInt32(iValue));
-            return Chars[(CurrentStep + iValue) % Program.CHAR_NUM];
+            int iValue = Alphabet.IndexOf(value);
+            return Chars[(iValue) % Program.CHAR_NUM];
+        }
+
+        public void ShiftRight()
+        {
+            Chars.Add(Chars.ElementAt(0));
+            Chars.RemoveAt(0);
+            Rotate();
+        }
+
+        public string GetValueBackward(string value)
+        {
+            int iValue = Chars.IndexOf(value);
+            Debug.WriteLine("ROTOR GETVALUE " + value + "->" + Chars[(iValue + Program.CHAR_NUM) % Program.CHAR_NUM]);
+            string newVal = Alphabet[(iValue) % Program.CHAR_NUM];
+            return newVal;
         }
     }
 }
