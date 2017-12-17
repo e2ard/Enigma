@@ -16,9 +16,16 @@ namespace Enigma.App
         
         public EnigmaMachine()
         {
-            EnigmaParams ep = InOutControl.GetEnigmaParams();
-            utls = new EnigmaUtilities(ep.R1, ep.R2, ep.R3);
             io = new InOutControl();
+            EnigmaParams ep = io.GetEnigmaParams();
+            SetRotorValues(ep.R1, ep.R2, ep.R3);// new EnigmaUtilities(ep.R1, ep.R2, ep.R3);
+            
+        }
+
+        public void SetRotorValues(int r1, int r2, int r3)
+        {
+            //Console.WriteLine("Starting settings: {0}, {1}, {2}", r1, r2, r3);
+            utls = new EnigmaUtilities(r1, r2, r3);
         }
 
         public string GetTextToEncrypt()
@@ -29,7 +36,7 @@ namespace Enigma.App
         {
             string encryptedChar;
             string lineToEncrypt;
-
+            File.WriteAllText(Program.OUT_FILE_NAME, "");
             while ((lineToEncrypt = GetTextToEncrypt()) != null)
             {
                 for (int i = 0; i < lineToEncrypt.Length; i++)
@@ -38,7 +45,9 @@ namespace Enigma.App
                     string toEncrypt = lineToEncrypt[i].ToString();
                     encryptedChar = Encrypt(toEncrypt);
                     if (encryptedChar.Equals(toEncrypt))
-                        break;
+                    {
+                        throw new Exception("Char encrypted to char");
+                    }
                     io.WriteToFile(encryptedChar);
                     Console.Write(encryptedChar);
                 }
@@ -48,7 +57,7 @@ namespace Enigma.App
             Console.ReadLine();
         }
 
-        private string Encrypt(string input)
+        public string Encrypt(string input)
         {
             string s1 = utls.r1.GetValueForward(input);
             string s2 = utls.r2.GetValueForward(s1);

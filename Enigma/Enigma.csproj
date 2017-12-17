@@ -49,6 +49,7 @@
     <Compile Include="App\InOutControl.cs" />
     <Compile Include="App\Reflector.cs" />
     <Compile Include="App\Rotor.cs" />
+    <Compile Include="Bombe.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

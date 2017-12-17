@@ -11,10 +11,11 @@ namespace Enigma.App
     {
         public Rotor r1, r2, r3;
         public Reflector r;
-        List<string> CharsR1 = new List<string> { "C", "A", "B", "E", "D" };
-        List<string> CharsR2 = new List<string> { "B", "E", "C", "A", "D" };
-        List<string> CharsR3 = new List<string> { "A", "D", "B", "E", "C" };
-        List<string> CharsR = new List<string> { "D", "C", "A", "E", "B" };
+        List<string> CharsR1 = new List<string> { "C", "A", "B", "E", "F", "D", "G", "H", "I", "J",  };
+        List<string> CharsR2 = new List<string> { "B", "E", "C", "A", "F", "D", "H", "J", "I", "G" };
+        List<string> CharsR3 = new List<string> { "A", "D", "B", "E", "F", "C", "G", "I", "H", "J" };
+        List<string> CharsR = new List<string> { "D", "C", "B", "A", "F", "E", "H", "G", "J", "I" };
+                                             //{ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
         public EnigmaUtilities(int ir1, int ir2, int ir3)
         {
             InitiateMachine(ir1, ir2, ir3);
@@ -32,9 +33,9 @@ namespace Enigma.App
             Debug.WriteLine("ENIGMA MACHINE STEP");
             //r1.Rotate();
             r1.ShiftRight();
-            if (r1.CurrentStep == Program.CHAR_NUM - 1)
+            if (r1.CurrentStep == Program.CHAR_NUM)
                 r2.ShiftRight();
-            if (r2.CurrentStep == Program.CHAR_NUM - 1)
+            if (r2.CurrentStep == Program.CHAR_NUM)
                 r3.ShiftRight();
         }
     }

@@ -11,7 +11,7 @@ namespace Enigma.App
     {
         public int CurrentStep;
         public List<string> Chars;
-        public List<string> Alphabet = new List<string>{ "A", "B", "C", "D", "E" };
+        public List<string> Alphabet = Program.Alphabet;
         public Rotor(int step, List<string> chars)
         {
             Debug.WriteLine("ROTOR CONSTRUCTOR " + step);
@@ -25,7 +25,7 @@ namespace Enigma.App
 
         public int SetStep(int step)
         {
-            return step % Program.CHAR_NUM;
+            return step % (Program.CHAR_NUM + 1);
         }
 
         public string GetValueForward(string value)

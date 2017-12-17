@@ -15,9 +15,9 @@ namespace Enigma.App
 
         public string GetValueForward(string value)
         {
-            int iValue = Chars.IndexOf(value);
+            int iValue = Alphabet.IndexOf(value);
             //Debug.WriteLine("ROTOR GETVALUE " + value + "->"+ Chars[(CurrentStep + iValue) % Program.CHAR_NUM]);
-            return Chars[(CurrentStep + iValue) % Program.CHAR_NUM];
+            return Chars[(iValue) % Program.CHAR_NUM];
         }
     }
 }

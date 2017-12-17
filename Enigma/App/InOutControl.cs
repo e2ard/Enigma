@@ -9,31 +9,45 @@ namespace Enigma.App
 {
     class InOutControl
     {
-        private string IN_FILE_NAME = "C://Users//Edvard//Documents//Visual Studio 2015//Projects//Enigma//Enigma//AppFiles//ToEncrypt.txt";
-        private string OUT_FILE_NAME = "C://Users//Edvard//Documents//Visual Studio 2015//Projects//Enigma//Enigma//AppFiles//EncryptedText.txt";
-        StreamReader sr;
-        StreamWriter outputFile;
+        StreamReader InFile;
+        StreamWriter OutFile;
+        StreamReader ConfigFile;
         public InOutControl()
         {
-            sr = new StreamReader(IN_FILE_NAME);
-            //outputFile = new StreamWriter(OUT_FILE_NAME);
+            InFile = new StreamReader(Program.IN_FILE_NAME);
+            //OutFile = new StreamWriter(OUT_FILE_NAME);
         }
 
-        public static EnigmaParams GetEnigmaParams(string fileName = "")
+        public EnigmaParams GetEnigmaParams()
         {
-            return new EnigmaParams(0,0,0);
+            ConfigFile = new StreamReader(Program.CONFIG_FILE);
+            string paramLine = ConfigFile.ReadLine();
+            string [] param = paramLine.Split(' ');
+            return new EnigmaParams(Convert.ToInt32(param[0]), Convert.ToInt32(param[1]), Convert.ToInt32(param[2]));
+        }
+
+        public string GetEncrypted()
+        {
+            StreamReader fileRead = new StreamReader(Program.OUT_FILE_NAME);
+            return fileRead.ReadLine();
+        }
+
+        public string GetDecrypted()
+        {
+            StreamReader fileRead = new StreamReader(Program.IN_FILE_NAME);
+            return fileRead.ReadLine();
         }
 
         public string ReadLine()
         {
-            return sr.ReadLine();
+            return InFile.ReadLine();
         }
         public void WriteToFile(string line)
         {
-            File.AppendAllText(OUT_FILE_NAME, line);
-            //using (outputFile)
+            File.AppendAllText(Program.OUT_FILE_NAME, line);
+            //using (OutFile)
             //{
-            //    outputFile.ap.WriteLine(line);
+            //    OutFile.ap.WriteLine(line);
             //}
         }
     }
